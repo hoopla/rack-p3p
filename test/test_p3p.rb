@@ -5,7 +5,7 @@ class P3pPolicyTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   def app
-    P3p.new(DummyApp.new, sample_policy)
+    Rack::P3p.new(DummyApp.new, sample_policy)
   end
 
   def test_p3p_response
@@ -15,7 +15,7 @@ class P3pPolicyTest < Test::Unit::TestCase
     p3p = headers['P3P']
     assert_not_nil p3p
 
-    assert_equal p3p, P3p.as_policy(sample_policy)
+    assert_equal p3p, Rack::P3p.as_policy(sample_policy)
   end
 
   private
@@ -31,7 +31,7 @@ class P3pPolicyDefaultTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   def app
-    P3p.new(DummyApp.new)
+    Rack::P3p.new(DummyApp.new)
   end
 
   def test_p3p_response
@@ -39,7 +39,7 @@ class P3pPolicyDefaultTest < Test::Unit::TestCase
 
     p3p = last_response.header['P3P']
     assert_not_nil p3p
-    assert_equal p3p, P3p.as_policy(P3p.default_policy)
+    assert_equal p3p, Rack::P3p.as_policy(Rack::P3p.default_policy)
   end
 
   private
