@@ -16,6 +16,16 @@ Add it to your middleware stack in config/application.rb:
 
     config.middleware.insert_before ActionDispatch::Session::CookieStore, Rack::P3p
 
+To use a different P3P policy than the default:
+
+    Rack::P3p.policy = 'CP="We do not have a P3P policy. Please visit http://a.com/privacy to view our privacy policy."'
+    config.middleware.insert_before ActionDispatch::Session::CookieStore, Rack::P3p
+
+Facebook and Google, among many others, explicitly set their P3P header similarly
+to skirt both the (poorly guarded and mostly discarded) IE P3P policy AND the
+potential for legal concerns, expounded upon here:
+http://stackoverflow.com/questions/389456/cookie-blocked-not-saved-in-iframe-in-internet-explorer
+
 Enjoy.
 
 Credits
