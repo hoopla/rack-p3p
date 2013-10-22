@@ -1,7 +1,13 @@
 # Shamelessly ripped from http://www.mail-archive.com/rubyonrails-core@googlegroups.com/msg09777.html
 module Rack
   class P3p
-    POLICY = 'CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"'
+    class << self
+      attr_writer :policy
+
+      def policy
+        @policy ||= 'CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"'
+      end
+    end
 
     def initialize(app)
       @app = app
@@ -17,7 +23,7 @@ module Rack
         if response.first == 304
           response[1].delete('Set-Cookie')
         else
-          response[1].update('P3P' => POLICY)
+          response[1].update('P3P' => self.class.policy)
         end
         response
       end
