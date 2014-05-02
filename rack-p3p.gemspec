@@ -1,5 +1,6 @@
 Gem::Specification.new do |s|
   s.name      = "rack-p3p"
+  s.license   = "MIT"
   s.version   = "0.5.0"
   s.authors   = ["Robert Vogel", "Mat Schaffer", "Trotter Cashion"]
   s.date      = %q{2010-04-23}
